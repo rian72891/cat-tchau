@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep the uploaded Catchau storefront isolated as a static document embedded by the index route, because exact source fidelity and original external image URLs are required.
+- The static storefront loads products, accounts and orders from Lovable Cloud through public/catchau/account.js; orders are priced server-side by the place_order database function so cart prices can't be tampered with. Product ids equal array positions because cart keys rely on them.

@@ -727,3 +727,17 @@ footer {
     transition:none!important
   }
 }
+.acct{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;background:#0008;padding:16px}
+.acct.on{display:flex}
+.acct-box{position:relative;background:var(--card,var(--bg));color:inherit;border-radius:16px;padding:28px;width:100%;max-width:420px;max-height:90vh;overflow:auto;box-shadow:0 20px 60px #0007}
+.acct-x{position:absolute;top:12px;right:12px}
+.acct h2{margin:0 0 6px}
+.acct p.m{color:var(--mute);margin:0 0 18px;font-size:14px}
+.acct label{display:block;font-size:13px;font-weight:600;margin:12px 0 4px}
+.acct input{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--line,#8884);background:transparent;color:inherit;font:inherit;box-sizing:border-box}
+.acct .btn{width:100%;margin-top:18px}
+.acct .sw{background:none;border:0;color:var(--brand);cursor:pointer;font:inherit;padding:0;margin-top:14px;text-decoration:underline}
+.acct .err{color:var(--brand);font-size:13px;min-height:18px;margin-top:10px}
+.acct .ord{border:1px solid var(--line,#8884);border-radius:12px;padding:12px;margin-top:10px;font-size:14px}
+.acct .ord b{display:flex;justify-content:space-between}
+.acct .ord small{color:var(--mute)}
