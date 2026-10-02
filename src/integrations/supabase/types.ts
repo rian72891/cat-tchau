@@ -14,13 +14,144 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      order_items: {
+        Row: {
+          id: string
+          order_id: string
+          product_id: number
+          product_name: string
+          quantity: number
+          unit_price: number
+        }
+        Insert: {
+          id?: string
+          order_id: string
+          product_id: number
+          product_name: string
+          quantity: number
+          unit_price: number
+        }
+        Update: {
+          id?: string
+          order_id?: string
+          product_id?: number
+          product_name?: string
+          quantity?: number
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          coupon: string | null
+          created_at: string
+          discount: number
+          id: string
+          status: string
+          subtotal: number
+          total: number
+          user_id: string
+        }
+        Insert: {
+          coupon?: string | null
+          created_at?: string
+          discount?: number
+          id?: string
+          status?: string
+          subtotal: number
+          total: number
+          user_id: string
+        }
+        Update: {
+          coupon?: string | null
+          created_at?: string
+          discount?: number
+          id?: string
+          status?: string
+          subtotal?: number
+          total?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          brand: string
+          category: string
+          created_at: string
+          id: number
+          image_url: string | null
+          name: string
+          old_price: number
+          price: number
+          rating: number
+          reviews: number
+        }
+        Insert: {
+          brand: string
+          category: string
+          created_at?: string
+          id: number
+          image_url?: string | null
+          name: string
+          old_price: number
+          price: number
+          rating?: number
+          reviews?: number
+        }
+        Update: {
+          brand?: string
+          category?: string
+          created_at?: string
+          id?: number
+          image_url?: string | null
+          name?: string
+          old_price?: number
+          price?: number
+          rating?: number
+          reviews?: number
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string | null
+          id: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      place_order: { Args: { _coupon?: string; _items: Json }; Returns: string }
     }
     Enums: {
       [_ in never]: never
