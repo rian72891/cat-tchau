@@ -726,7 +726,8 @@ footer {
   * {
     transition:none!important
   }
-}.acct{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:#0008;padding:16px}
+}
+.acct{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;background:#0008;padding:16px}
 .acct.on{display:flex}
 .acct-box{position:relative;background:var(--card,var(--bg));color:inherit;border-radius:16px;padding:28px;width:100%;max-width:420px;max-height:90vh;overflow:auto;box-shadow:0 20px 60px #0007}
 .acct-x{position:absolute;top:12px;right:12px}
