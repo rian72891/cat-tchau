@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep the uploaded Catchau storefront isolated as a static document embedded by the index route, because exact source fidelity and original external image URLs are required.
