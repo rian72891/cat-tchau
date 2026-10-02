@@ -70,6 +70,31 @@ const P=[
 
 ['mon','AOC','Hero 24" Full HD 180Hz IPS',799,999,4.6,601,'https://http2.mlstatic.com/D_NQ_NP_2X_834036-CBT109950096126_042026-F.webp'],
 
+["per", "Logitech", "Mouse G502 HERO RGB 25K DPI", 249, 349, 4.8, 2210, "https://images.kabum.com.br/produtos/fotos/98244/mouse-gamer-logitech-g502-hero-16k-rgb-lightsync-11-botoes-16000-dpi-910-005550_1626297206_gg.jpg"],
+["per", "Razer", "Mouse DeathAdder V3 30K DPI ultraleve", 549, 699, 4.8, 318, "https://images.kabum.com.br/produtos/fotos/476953/mouse-gamer-razer-deathadder-v3-30000-dpi-ultra-leve-6-botoes-com-fio-8k-hz-preto-rz0104640100r3m_1785509873_gg.jpg"],
+["per", "Redragon", "Mouse Cobra M711 RGB 12400 DPI", 99, 149, 4.6, 5120, "https://images.kabum.com.br/produtos/fotos/94555/mouse-gamer-redragon-cobra-chroma-rgb-10000dpi-7-botoes-preto-m711-v2_1742821619_gg.jpg"],
+["per", "HyperX", "Mouse Pulsefire Haste 2 sem fio", 449, 599, 4.7, 264, "https://images.kabum.com.br/produtos/fotos/519395/mouse-gamer-hyperx-pulsefire-haste-2-rgb-3200dpi-6-botoes-wireless-preto-6n0b0aa_1711030049_gg.jpg"],
+["per", "Logitech", "Mouse G305 Lightspeed sem fio", 199, 279, 4.8, 3890, "https://images.kabum.com.br/produtos/fotos/97092/mouse-gamer-sem-fio-logitech-g305-lightspeed-12000-dpi-6-botoes-preto-910-005281_1781726494_gg.jpg"],
+["per", "Logitech", "Teclado G915 X Lightspeed sem fio", 1499, 1899, 4.8, 121, "https://images.kabum.com.br/produtos/fotos/652580/teclado-mecanico-gamer-sem-fio-logitech-g915-x-lightspeed-rgb-lightsync-usb-ou-bluetooth-switch-gl-brown-tactile-preto-920-012670_1731261713_gg.jpg"],
+["per", "Redragon", "Teclado Kumara K552 RGB Switch Brown", 189, 259, 4.7, 6340, "https://images.kabum.com.br/produtos/fotos/93160/93160_1523969683_index_gg.jpg"],
+["per", "HyperX", "Teclado Alloy Origins 65 Switch Red", 399, 549, 4.7, 412, "https://images.kabum.com.br/produtos/fotos/371598/teclado-hyperx-alloy-origins-65hkbo1t-rd-eua-n-4p5d6aa-aba_1659554472_gg.jpg"],
+["per", "Corsair", "Teclado K70 PRO TKL Hall Effect", 1099, 1399, 4.8, 97, "https://images.kabum.com.br/produtos/fotos/722601/teclado-gamer-hall-effect-corsair-k70-pro-tkl-switches-magneticos-mgx-hyperdrive-usb-3-0-efeito-hall-preto-ch-911911g-na_1748528298_gg.jpg"],
+["per", "Razer", "Teclado BlackWidow V3 TKL RGB", 649, 849, 4.6, 233, "https://images.kabum.com.br/produtos/fotos/735178/teclado-gamer-mecanico-razer-blackwidow-v3-tkl-switches-amarelo-rgb-rz03-03491800_1782762421_gg.jpg"],
+["per", "Logitech", "Headset G733 sem fio 7.1 RGB", 749, 999, 4.7, 1180, "https://images.kabum.com.br/produtos/fotos/120487/headset-gamer-sem-fio-logitech-g733-rgb-lightsync-7-1-dolby-surround-com-blue-voice-preto-981-000863_1612874214_gg.jpg"],
+["per", "Razer", "Headset BlackShark V2 X 7.1", 299, 399, 4.7, 2045, "https://images.kabum.com.br/produtos/fotos/128544/headset-gamer-razer-blackshark-v2-x-multi-platform-drivers-50mm-rz04-03240100-r3u1_1600956255_gg.jpg"],
+["per", "Redragon", "Headset Zeus X RGB 7.1 USB", 249, 329, 4.6, 3172, "https://images.kabum.com.br/produtos/fotos/227818/headset-gamer-redragon-zeus-chroma-mk-ii-rgb-surround-7-1-usb-drivers-53mm-preto-vermelho-h510-rgb_1631555309_gg.jpg"],
+["per", "Corsair", "Headset HS80 sem fio Dolby Atmos", 899, 1199, 4.6, 288, "https://images.kabum.com.br/produtos/fotos/216705/headset-gamer-sem-fio-corsair-hs80-premium-rgb-surround-dolby-atmos-wireless-drivers-50mm-preto-ca-9011235-na_1636559754_gg.jpg"],
+["per", "Razer", "Mousepad Goliathus Chroma Extendido", 449, 599, 4.7, 356, "https://images.kabum.com.br/produtos/fotos/112968/mousepad-gamer-razer-goliathus-chroma-rgb-control-speed-extendido-920x294mm-mercury-branco-rz02-02500314_1785176099_gg.jpg"],
+["per", "Logitech", "Mousepad G240 340x280mm", 79, 119, 4.8, 4410, "https://images.kabum.com.br/produtos/fotos/477540/mousepad-gamer-logitech-g-g240-pequeno-atrito-moderado-943-000783_1699886360_gg.jpg"],
+["per", "Logitech", "Webcam C920s Full HD 1080p", 399, 549, 4.8, 2780, "https://images.kabum.com.br/produtos/fotos/103431/webcam-full-hd-logitech-c920s-com-microfone-embutido-protecao-de-privacidade-widescreen-1080p-compativel-logitech-capture-960-001257_1779373396_gg.jpg"],
+["per", "HyperX", "Microfone QuadCast 2 USB", 799, 999, 4.8, 190, "https://images.kabum.com.br/produtos/fotos/638956/microfone-hyperx-quadcast-2-compativel-com-pc-mac-e-consoles-cardioide-led-vermelho-preto-872v1aa_1727358030_gg.jpg"],
+["per", "Fifine", "Microfone Ampligame AM8 RGB USB-C", 299, 399, 4.7, 845, "https://images.kabum.com.br/produtos/fotos/592292/microfone-dinamico-gamer-fifine-ampligame-rgb-cardioide-usb-c-anti-ruido-para-streaming-preto-am8_1733503402_gg.jpg"],
+["per", "ThunderX3", "Cadeira Gamer TGC12 reclinável", 899, 1299, 4.6, 1520, "https://images.kabum.com.br/produtos/fotos/92008/92008_5_1526389239_gg.jpg"],
+["per", "Microsoft", "Controle Xbox Series sem fio", 399, 499, 4.9, 3650, "https://images.kabum.com.br/produtos/fotos/sync_mirakl/158630/xlarge/Controle-Sem-Fio-Xbox-Series-X-e-S-Microsoft-Carbon-Black-Bluetooth-Preto_1783965189.jpg"],
+["per", "Sony", "Controle DualSense PS5", 449, 549, 4.9, 2930, "https://images.kabum.com.br/produtos/fotos/1032835/controle-sem-fio-sony-dualsense-playstation-5-bluetooth-midnight-black-cfi-zct2w_1780665845_gg.jpg"],
+["per", "Redragon", "Caixa de som Anvil GS520 RGB", 149, 199, 4.6, 1270, "https://images.kabum.com.br/produtos/fotos/sync_mirakl/150886/xlarge/Caixa-de-Som-Gamer-Redragon-Anvil-RGB-Stereo-2-0-5W-USB-P2-LED-RGB-GS520_1777055325.jpg"],
+["per", "SteelSeries", "Headset Arctis Nova Elite sem fio", 2999, 3599, 4.8, 42, "https://images.kabum.com.br/produtos/fotos/sync_mirakl/1052899/xlarge/Headset-Steelseries-Arctis-Nova-Elite-Hi-res-Wireless-96khz-Drivers-De-Fibra-De-Carbono-E-Anc-Ps5-xbox-PC-Obsidian_1782410018.webp"],
+
 ].map((a,i)=>({id:i,cat:a[0],brand:a[1],name:a[2],price:a[3],old:a[4],rate:a[5],n:a[6],img:a[7]||null,dc:1-a[3]/a[4]}));
 const pix=p=>p.price*.85;
 const CUPONS=          {
@@ -254,7 +279,7 @@ else if(t.id==='clr')reset();
 
 else if(t.id==='fb')$('#filters').classList.toggle('on');
 
-else if(t.id==='chk')toast(Object.keys(cart).length?'Checkout simulado: nenhum pedido foi criado':'Adicione produtos antes de finalizar');
+else if(t.id==='chk'){if(!Object.keys(cart).length)toast('Adicione produtos antes de finalizar');else if(window.checkout)window.checkout(cart,cupom,()=>{cart={};cupom=null;cartUI();drawer(false)});else toast('Carregando, tente novamente')}
 
 else if(t.id==='cupomBtn')aplicarCupom();
 
@@ -325,3 +350,5 @@ grid();
 cartUI();
 tick();
 setInterval(tick,1000);
+// Carrega o catálogo do banco de dados (mantém a lista acima como reserva)
+window.loadCatalog=async(sb)=>{try{const {data,error}=await sb.from('products').select('id,category,brand,name,price,old_price,rating,reviews,image_url').order('id');if(error||!data||!data.length)return;P.length=0;data.forEach(r=>P[r.id]={id:r.id,cat:r.category,brand:r.brand,name:r.name,price:+r.price,old:+r.old_price,rate:+r.rating,n:r.reviews,img:r.image_url||null,dc:1-r.price/r.old_price});Object.keys(cart).forEach(k=>{if(!P[k])delete cart[k]});brands();deal();grid();cartUI()}catch(e){}};
