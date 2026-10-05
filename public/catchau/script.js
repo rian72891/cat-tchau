@@ -200,7 +200,7 @@ const P=[
 ["mon","LG","Monitor UltraGear 27\" OLED 240Hz",4990,6587,4.7,316,"https://tse3.mm.bing.net/th?q=LG+Monitor+UltraGear+27%22+OLED+240Hz+produto+fundo+branco&w=600&h=600&c=7&rs=1&p=0"],
 ["mon","LG","Monitor UltraGear 24\" 144Hz IPS",899,1223,4.8,453,"https://tse4.mm.bing.net/th?q=LG+Monitor+UltraGear+24%22+144Hz+IPS+produto+fundo+branco&w=600&h=600&c=7&rs=1&p=0"],
 ["mon","LG","Monitor UltraGear 27\" 144Hz IPS",1299,1611,4.9,590,"https://tse1.mm.bing.net/th?q=LG+Monitor+UltraGear+27%22+144Hz+IPS+produto+fundo+branco&w=600&h=600&c=7&rs=1&p=0"],
-["mon","Samsung","Monitor Odyssey G3 27\" 180Hz",1199,1535,4.5,727,"https://tse2.mm.bing.net/th?q=Samsung+Monitor+Odyssey+G3+27%22+180Hz+produto+fundo+branco&w=600&h=600&c=7&rs=1&p=0"],
+["mon","Samsung","Monitor Odyssey G3 27\" 180Hz",1199,1535,4.5,727,"https://tse2.mm.bing.net/th?q=Samsung+Odyssey+G3+27+180Hz+monitor&w=600&h=600&c=7&rs=1&p=0"],
 ["mon","Samsung","Monitor Odyssey G4 27\" 300Hz",1899,2507,4.6,864,"https://tse3.mm.bing.net/th?q=Samsung+Monitor+Odyssey+G4+27%22+300Hz+produto+fundo+branco&w=600&h=600&c=7&rs=1&p=0"],
 ["mon","Samsung","Monitor Odyssey G6 27\" OLED 360Hz",4798,6525,4.7,1001,"https://tse4.mm.bing.net/th?q=Samsung+Monitor+Odyssey+G6+27%22+OLED+360Hz+produto+fundo+branco&w=600&h=600&c=7&rs=1&p=0"],
 ["mon","Samsung","Monitor Odyssey G9 49\" DQHD 240Hz",6999,8679,4.8,1138,"https://tse1.mm.bing.net/th?q=Samsung+Monitor+Odyssey+G9+49%22+DQHD+240Hz+produto+fundo+branco&w=600&h=600&c=7&rs=1&p=0"],
