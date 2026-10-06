@@ -274,7 +274,7 @@ function grid()          {
   $('#grid').innerHTML=l.length?l.map(p=>`<article class="card" data-pid="${p.id}">
   <span class="off">-${Math.round(p.dc*100)}%</span>
   <button class="heart" data-fav="${p.id}" aria-pressed="${favs.has(p.id)}" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.700-8 11-8 11z"/></svg></button>
-  <div class="pic" style="color:var(--brand)">${p.img?`<img src="${p.img}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:contain" onerror="this.parentElement.innerHTML='${art(p.cat).replace(/'/g,"\\'")}'">`:art(p.cat)}</div>
+  <div class="pic" style="color:var(--brand)">${p.img?`<img src="${p.img}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:contain" onerror="this.style.visibility='hidden'">`:art(p.cat)}</div>
   <div class="brand">${p.brand}</div><h3>${p.name}</h3>
   <div class="stars" aria-label="Nota ${p.rate}">${stars(p.rate)} <small>(${p.n})</small></div>
   <div class="old">${R(p.old)}</div>
@@ -308,7 +308,7 @@ function cartUI()          {
   $('#tot').textContent=R(tot);
   const left=500-tot;
   $('#ship').innerHTML=left>0?`Faltam <b>${R(left)}</b> para o frete grátis<i><b style="width:${tot/5}%"></b></i>`:`<b style="color:var(--ok)">Você ganhou frete grátis</b><i><b style="width:100%"></b></i>`;
-  $('#items').innerHTML=ids.length?ids.map(k=>{const p=P[k];return `<div class="it"><div class="pic">${p.img?`<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:contain" onerror="this.parentElement.innerHTML='${art(p.cat).replace(/'/g,"\\'")}'">`:art(p.cat)}</div><div style="flex:1"><p>${p.name}</p><b>${R(pix(p))}</b><br>
+  $('#items').innerHTML=ids.length?ids.map(k=>{const p=P[k];return `<div class="it"><div class="pic">${p.img?`<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:contain" onerror="this.style.visibility='hidden'">`:art(p.cat)}</div><div style="flex:1"><p>${p.name}</p><b>${R(pix(p))}</b><br>
  <span class="qty"><button data-q="${k}" data-d="-1" aria-label="Diminuir">−</button><span>${cart[k]}</span><button data-q="${k}" data-d="1" aria-label="Aumentar">+</button></span><button class="rm" data-rm="${k}">Remover</button></div></div>`}).join(''):'<p style="color:var(--mute);padding:30px 0;text-align:center">Seu carrinho está vazio.<br>Adicione produtos para começar.</p>';
   $('#subrow').style.display=ids.length?'flex':'none';
   $('#sub').textContent=R(sub);
@@ -473,20 +473,56 @@ setInterval(tick,1000);
 // Carrega o catálogo do banco de dados (mantém a lista acima como reserva)
 window.loadCatalog=async(sb)=>{try{const {data,error}=await sb.from('products').select('id,category,brand,name,price,old_price,rating,reviews,image_url').order('id');if(error||!data||!data.length)return;P.length=0;data.forEach(r=>P[r.id]={id:r.id,cat:r.category,brand:r.brand,name:r.name,price:+r.price,old:+r.old_price,rate:+r.rating,n:r.reviews,img:r.image_url||null,dc:1-r.price/r.old_price});Object.keys(cart).forEach(k=>{if(!P[k])delete cart[k]});brands();deal();grid();cartUI()}catch(e){}};
 
-document.addEventListener('click',e=>{const c=e.target.closest('.card[data-pid]');if(!c||e.target.closest('button'))return;pdOpen(+c.dataset.pid)});
-function pdOpen(id){const p=P.find(x=>x.id===id);if(!p)return;const d=$('#pd');
-$('#pdBody').innerHTML=`<div class="pd-crumb">Home / ${CATS[p.cat]} / ${p.name}</div><div class="pd-g">
-<div class="pd-img">${p.img?`<img src="${p.img}" alt="${p.name}">`:art(p.cat)}</div>
-<div class="pd-i"><div class="stars">${stars(p.rate)} <small>${p.rate.toFixed(1)} (${p.n} avaliações)</small></div>
-<h2>${p.name}</h2><div class="pd-row"><b class="pd-ok">PRODUTO DISPONÍVEL</b><span>Cód: CTC-${String(p.id).padStart(5,'0')}</span></div>
-<div>Marca: <b>${p.brand}</b></div>
-<div class="pd-box"><span class="off" style="position:static">-${Math.round(p.dc*100)}%</span> Desconto</div>
-<div class="pd-pr"><div><div class="old">de ${R(p.old)} por:</div><div class="pix" style="font-size:32px">${R(pix(p))}</div><small>no PIX com 15% desconto</small></div>
-<div><b>${R(p.price)}</b><br><small>em até 12x de ${R(p.price/12)} sem juros no cartão</small></div></div>
-<button class="btn pd-buy" data-add="${p.id}">COMPRAR — colocar no carrinho</button>
-<h3 class="pd-h">Características</h3><div>Categoria: <b>${CATS[p.cat]}</b></div><div>Garantia: <b>12 meses</b></div>
-<button class="heart" style="position:static;margin-top:14px" data-fav="${p.id}" aria-pressed="${favs.has(p.id)}" aria-label="Favoritar">♥</button></div></div>`;
-d.classList.add('on');d.setAttribute('aria-hidden','false')}
-function pdClose(){$('#pd').classList.remove('on');$('#pd').setAttribute('aria-hidden','true')}
-$('#pdCls').onclick=pdClose;$('#pd').addEventListener('click',e=>{if(e.target.id==='pd')pdClose()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')pdClose()});
+/* ===== Página de produto ===== */
+const PD_ANG={cpu:['caixa embalagem','processador chip frente','processador verso pinos','instalado placa mae'],gpu:['placa de video frente','placa de video lateral','backplate traseira','instalada gabinete rgb'],ram:['memoria ram','memoria ram kit par','memoria ram lateral rgb','instalada placa mae'],ssd:['ssd','ssd verso etiqueta','ssd caixa embalagem','ssd instalado'],per:['','lateral','embalagem caixa','setup gamer mesa'],mon:['monitor frente','monitor lateral','monitor traseira','monitor setup gamer']};
+const SPECS={cpu:[['Soquete',p=>(p.name.match(/(LGA\d+|AM\d)/)||['—'])[0]],['Núcleos',p=>(p.name.match(/(\d+) núcleos/)||[,'—'])[1]],['Frequência máx.',p=>(p.name.match(/[\d.]+GHz/)||['—'])[0]],['Gráficos integrados','Consulte o fabricante']],gpu:[['Memória',p=>(p.name.match(/\d+GB/)||['—'])[0]],['Interface','PCI Express 4.0 x16'],['Saídas','HDMI 2.1 / DisplayPort 1.4a'],['Ray tracing','Sim'],['Fonte recomendada','650 W ou superior']],ram:[['Capacidade',p=>(p.name.match(/\d+GB/)||['—'])[0]],['Tipo',p=>(p.name.match(/DDR\d/)||['DDR'])[0]],['Frequência',p=>(p.name.match(/\d{4}MHz/)||['—'])[0]],['Formato','DIMM'],['Dissipador','Sim']],ssd:[['Capacidade',p=>(p.name.match(/\d+\s?(TB|GB)/)||['—'])[0]],['Interface',p=>/NVMe|M\.2/i.test(p.name)?'M.2 NVMe PCIe':'SATA III 6Gb/s'],['Leitura sequencial',p=>(p.name.match(/\d[\d.]*\s?MB\/s/)||['Até a especificação do fabricante'])[0]],['MTBF','1.500.000 horas'],['Formato',p=>/NVMe|M\.2/i.test(p.name)?'M.2 2280':'2,5"']],per:[['Conexão',p=>/sem fio|wireless|lightspeed|hyperspeed/i.test(p.name)?'Sem fio':'Com fio'],['Iluminação','RGB'],['Compatibilidade','PC, notebook e consoles'],['Software','Sim, do fabricante']],mon:[['Tamanho',p=>(p.name.match(/\d+(\.\d+)?["”]/)||['—'])[0]],['Taxa de atualização',p=>(p.name.match(/\d+Hz/)||['—'])[0]],['Resolução',p=>/4K|UHD/i.test(p.name)?'3840 x 2160':/QHD|2K|1440/i.test(p.name)?'2560 x 1440':'1920 x 1080'],['Tempo de resposta',p=>(p.name.match(/[\d.]+ms/)||['1ms'])[0]],['Conexões','HDMI / DisplayPort']]};
+let PDS={p:null,i:0,imgs:[],q:1};
+function pdImgs(p){const base=[p.img].filter(Boolean),qs=(PD_ANG[p.cat]||['']).map(a=>`${p.brand} ${p.name} ${a}`.trim());
+ return base.concat(qs.map((q,k)=>`https://tse${1+(p.id+k)%4}.mm.bing.net/th?q=${encodeURIComponent(q)}&w=800&h=800&c=7&rs=1&p=0`)).slice(0,5)}
+function pdOpen(id){const p=P.find(x=>x.id===id);if(!p)return;PDS={p,i:0,imgs:pdImgs(p),q:1};
+ const sp=(SPECS[p.cat]||[]).map(([k,v])=>`<tr><th>${k}</th><td>${typeof v==='function'?v(p):v}</td></tr>`).join('');
+ const rel=P.filter(x=>x.cat===p.cat&&x.id!==p.id).sort((a,b)=>Math.abs(a.price-p.price)-Math.abs(b.price-p.price)).slice(0,4);
+ const parc=[1,2,3,4,5,6,8,10,12].map(n=>`<li><span>${n}x</span><b>${R(p.price/n)}</b><small>sem juros</small></li>`).join('');
+ const dist=[5,4,3,2,1].map((s,k)=>{const w=[72,19,6,2,1][k];return `<div class="pd-bar"><span>${s}★</span><i><b style="width:${w}%"></b></i><small>${w}%</small></div>`}).join('');
+ $('#pdBody').innerHTML=`<nav class="pd-crumb"><a data-pdx>Home</a> / <a data-pdx>${CATS[p.cat]}</a> / <span>${p.name}</span></nav>
+<div class="pd-g"><div class="pd-gal"><div class="pd-th">${PDS.imgs.map((u,k)=>`<button data-pdi="${k}" class="${k?'':'on'}" aria-label="Imagem ${k+1}"><img src="${u}" alt="" loading="lazy" onerror="this.parentElement.remove()"></button>`).join('')}</div>
+<div class="pd-img" id="pdMain"><span class="off pd-tag">-${Math.round(p.dc*100)}%</span><button class="pd-nav l" data-pdn="-1" aria-label="Anterior">‹</button><img id="pdImg" src="${PDS.imgs[0]}" alt="${p.name}"><button class="pd-nav r" data-pdn="1" aria-label="Próxima">›</button><div class="pd-dots" id="pdDots"></div></div></div>
+<div class="pd-i"><div class="stars">${stars(p.rate)} <small><b>${p.rate.toFixed(1)}</b> (${p.n} avaliações)</small></div>
+<h2>${p.name}</h2><div class="pd-row"><b class="pd-ok">● PRODUTO DISPONÍVEL</b><span>SKU: <b>CTC-${String(p.id).padStart(5,'0')}</b></span></div>
+<div class="pd-row"><span>Marca: <b>${p.brand}</b></span><span>Garantia: <b>12 meses</b></span></div>
+<div class="pd-flash"><div><b class="pd-ft">OFERTA RELÂMPAGO</b><div class="pd-chips"><span class="c1">-${Math.round(p.dc*100)}%<small>Desconto</small></span><span class="c2">${37+p.id*7%160}<small>Disponíveis</small></span></div></div><div class="pd-cd" id="pdCd"></div></div>
+<div class="pd-pr"><div><div class="old">de ${R(p.old)} por:</div><div class="pd-pix">${R(pix(p))}</div><small>à vista no PIX com <b>15% de desconto</b></small><div class="pd-save">Você economiza ${R(p.old-pix(p))}</div></div>
+<div class="pd-sep"></div><div><div class="pd-card">${R(p.price)}</div><small>em até <b>12x de ${R(p.price/12)}</b><br>sem juros no cartão</small></div></div>
+<div class="pd-buyrow"><div class="pd-qty"><button data-pdq="-1" aria-label="Diminuir">−</button><b id="pdQ">1</b><button data-pdq="1" aria-label="Aumentar">+</button></div>
+<button class="btn pd-buy" id="pdBuy"><svg viewBox="0 0 24 24" width="26" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l3 12h11l2-8H6"/></svg><span>COMPRAR<small>colocar no carrinho</small></span></button>
+<button class="heart pd-fav" data-fav="${p.id}" aria-pressed="${favs.has(p.id)}" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg></button></div>
+<div class="pd-cep"><label>Calcular frete e prazo</label><div><input id="pdCep" inputmode="numeric" maxlength="9" placeholder="00000-000"><button class="btn" id="pdCepB">OK</button></div><div id="pdCepR"></div></div>
+<ul class="pd-trust"><li>✓ Compra 100% segura</li><li>✓ Envio para todo o Brasil</li><li>✓ 7 dias para devolução</li><li>✓ Garantia de 12 meses</li></ul></div></div>
+<div class="pd-tabs" role="tablist"><button class="on" data-pdt="d">Descrição</button><button data-pdt="e">Especificações</button><button data-pdt="p">Parcelamento</button><button data-pdt="a">Avaliações</button></div>
+<div class="pd-pane on" data-pane="d"><h3>${p.name}</h3><p>O <b>${p.name}</b> da <b>${p.brand}</b> foi desenvolvido para quem busca desempenho, confiabilidade e qualidade de construção. Uma escolha ideal na categoria de ${CATS[p.cat].toLowerCase()}, aliando tecnologia de ponta a um excelente custo-benefício.</p><ul class="pd-hl"><li>Produto original com nota fiscal</li><li>Garantia oficial de 12 meses</li><li>Embalagem lacrada de fábrica</li><li>Suporte técnico especializado Catchau</li></ul></div>
+<div class="pd-pane" data-pane="e"><table class="pd-spec"><tr><th>Marca</th><td>${p.brand}</td></tr><tr><th>Modelo</th><td>${p.name}</td></tr>${sp}<tr><th>Garantia</th><td>12 meses</td></tr></table></div>
+<div class="pd-pane" data-pane="p"><div class="pd-pixrow">PIX à vista: <b>${R(pix(p))}</b> (15% off)</div><ul class="pd-parc">${parc}</ul></div>
+<div class="pd-pane" data-pane="a"><div class="pd-rev"><div class="pd-score"><b>${p.rate.toFixed(1)}</b>${stars(p.rate)}<small>${p.n} avaliações</small></div><div>${dist}</div></div></div>
+${rel.length?`<h3 class="pd-h">Quem viu este produto também viu</h3><div class="pd-rel">${rel.map(r=>`<button class="pd-rc" data-pdo="${r.id}"><img src="${r.img}" alt="" loading="lazy"><span>${r.name}</span><b>${R(pix(r))}</b><small>no PIX</small></button>`).join('')}</div>`:''}`;
+ pdDots();pdTimer();const d=$('#pd');d.classList.add('on');d.setAttribute('aria-hidden','false');d.scrollTop=0;document.body.style.overflow='hidden'}
+function pdDots(){$('#pdDots').innerHTML=PDS.imgs.map((_,k)=>`<i class="${k===PDS.i?'on':''}"></i>`).join('')}
+function pdGo(k){const n=PDS.imgs.length;PDS.i=(k+n)%n;const im=$('#pdImg');im.classList.add('fade');setTimeout(()=>{im.src=PDS.imgs[PDS.i];im.classList.remove('fade')},140);
+ document.querySelectorAll('.pd-th button').forEach(b=>b.classList.toggle('on',+b.dataset.pdi===PDS.i));pdDots()}
+let pdT;function pdTimer(){clearInterval(pdT);const f=()=>{const el=$('#pdCd');if(!el)return clearInterval(pdT);const e=new Date();e.setHours(24,0,0,0);let s=Math.floor((e-new Date())/1e3);const z=v=>String(v).padStart(2,'0');
+ el.innerHTML=[['00','Dias'],[z(s/3600|0),'Horas'],[z(s%3600/60|0),'Minutos'],[z(s%60),'Segundos']].map(([v,l])=>`<div><b>${v}</b><small>${l}</small></div>`).join('')};f();pdT=setInterval(f,1000)}
+function pdClose(){$('#pd').classList.remove('on');$('#pd').setAttribute('aria-hidden','true');document.body.style.overflow='';clearInterval(pdT)}
+document.addEventListener('click',e=>{
+ const c=e.target.closest('.card[data-pid]');if(c&&!e.target.closest('button'))return pdOpen(+c.dataset.pid);
+ if(!e.target.closest('#pd'))return;const t=e.target.closest('button,a');
+ if(e.target.id==='pd'||(t&&t.matches('[data-pdx]')))return pdClose();if(!t)return;
+ if(t.dataset.pdi)pdGo(+t.dataset.pdi);else if(t.dataset.pdn)pdGo(PDS.i+ +t.dataset.pdn);
+ else if(t.dataset.pdq){PDS.q=Math.max(1,Math.min(10,PDS.q+ +t.dataset.pdq));$('#pdQ').textContent=PDS.q}
+ else if(t.id==='pdBuy'){cart[PDS.p.id]=(cart[PDS.p.id]||0)+PDS.q;cartUI();toast(PDS.q+'x adicionado ao carrinho');pdClose();drawer(true)}
+ else if(t.dataset.pdt){document.querySelectorAll('.pd-tabs button').forEach(b=>b.classList.toggle('on',b===t));document.querySelectorAll('.pd-pane').forEach(x=>x.classList.toggle('on',x.dataset.pane===t.dataset.pdt))}
+ else if(t.dataset.pdo)pdOpen(+t.dataset.pdo);
+ else if(t.id==='pdCepB'){const v=$('#pdCep').value.replace(/\D/g,'');$('#pdCepR').innerHTML=v.length!==8?'<span class="pd-err">CEP inválido</span>':`<div class="pd-fr"><span>Econômico · ${5+v[0]%4} dias úteis</span><b>${PDS.p.price>299?'Grátis':R(19.9)}</b></div><div class="pd-fr"><span>Expresso · ${1+v[0]%3} dias úteis</span><b>${R(39.9)}</b></div>`}
+});
+$('#pdCls').onclick=pdClose;
+document.addEventListener('keydown',e=>{if(!$('#pd').classList.contains('on'))return;if(e.key==='Escape')pdClose();if(e.key==='ArrowRight')pdGo(PDS.i+1);if(e.key==='ArrowLeft')pdGo(PDS.i-1)});
+document.addEventListener('mousemove',e=>{const m=e.target.closest&&e.target.closest('#pdMain');const im=$('#pdImg');if(!im)return;if(!m){im.style.transform='';return}const r=m.getBoundingClientRect();im.style.transformOrigin=`${(e.clientX-r.left)/r.width*100}% ${(e.clientY-r.top)/r.height*100}%`;im.style.transform='scale(1.8)'});
+document.addEventListener('input',e=>{if(e.target.id==='pdCep'){let v=e.target.value.replace(/\D/g,'').slice(0,8);e.target.value=v.length>5?v.slice(0,5)+'-'+v.slice(5):v}});
