@@ -271,7 +271,7 @@ function grid()          {
   const l=list();
   $('#ttl').textContent=S.cat==='all'?'Todos os produtos':CATS[S.cat];
   $('#res').textContent=l.length+(l.length===1?' produto':' produtos');
-  $('#grid').innerHTML=l.length?l.map(p=>`<article class="card">
+  $('#grid').innerHTML=l.length?l.map(p=>`<article class="card" data-pid="${p.id}">
   <span class="off">-${Math.round(p.dc*100)}%</span>
   <button class="heart" data-fav="${p.id}" aria-pressed="${favs.has(p.id)}" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.700-8 11-8 11z"/></svg></button>
   <div class="pic" style="color:var(--brand)">${p.img?`<img src="${p.img}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:contain" onerror="this.parentElement.innerHTML='${art(p.cat).replace(/'/g,"\\'")}'">`:art(p.cat)}</div>
@@ -472,3 +472,21 @@ tick();
 setInterval(tick,1000);
 // Carrega o catálogo do banco de dados (mantém a lista acima como reserva)
 window.loadCatalog=async(sb)=>{try{const {data,error}=await sb.from('products').select('id,category,brand,name,price,old_price,rating,reviews,image_url').order('id');if(error||!data||!data.length)return;P.length=0;data.forEach(r=>P[r.id]={id:r.id,cat:r.category,brand:r.brand,name:r.name,price:+r.price,old:+r.old_price,rate:+r.rating,n:r.reviews,img:r.image_url||null,dc:1-r.price/r.old_price});Object.keys(cart).forEach(k=>{if(!P[k])delete cart[k]});brands();deal();grid();cartUI()}catch(e){}};
+
+document.addEventListener('click',e=>{const c=e.target.closest('.card[data-pid]');if(!c||e.target.closest('button'))return;pdOpen(+c.dataset.pid)});
+function pdOpen(id){const p=P.find(x=>x.id===id);if(!p)return;const d=$('#pd');
+$('#pdBody').innerHTML=`<div class="pd-crumb">Home / ${CATS[p.cat]} / ${p.name}</div><div class="pd-g">
+<div class="pd-img">${p.img?`<img src="${p.img}" alt="${p.name}">`:art(p.cat)}</div>
+<div class="pd-i"><div class="stars">${stars(p.rate)} <small>${p.rate.toFixed(1)} (${p.n} avaliações)</small></div>
+<h2>${p.name}</h2><div class="pd-row"><b class="pd-ok">PRODUTO DISPONÍVEL</b><span>Cód: CTC-${String(p.id).padStart(5,'0')}</span></div>
+<div>Marca: <b>${p.brand}</b></div>
+<div class="pd-box"><span class="off" style="position:static">-${Math.round(p.dc*100)}%</span> Desconto</div>
+<div class="pd-pr"><div><div class="old">de ${R(p.old)} por:</div><div class="pix" style="font-size:32px">${R(pix(p))}</div><small>no PIX com 15% desconto</small></div>
+<div><b>${R(p.price)}</b><br><small>em até 12x de ${R(p.price/12)} sem juros no cartão</small></div></div>
+<button class="btn pd-buy" data-add="${p.id}">COMPRAR — colocar no carrinho</button>
+<h3 class="pd-h">Características</h3><div>Categoria: <b>${CATS[p.cat]}</b></div><div>Garantia: <b>12 meses</b></div>
+<button class="heart" style="position:static;margin-top:14px" data-fav="${p.id}" aria-pressed="${favs.has(p.id)}" aria-label="Favoritar">♥</button></div></div>`;
+d.classList.add('on');d.setAttribute('aria-hidden','false')}
+function pdClose(){$('#pd').classList.remove('on');$('#pd').setAttribute('aria-hidden','true')}
+$('#pdCls').onclick=pdClose;$('#pd').addEventListener('click',e=>{if(e.target.id==='pd')pdClose()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')pdClose()});
