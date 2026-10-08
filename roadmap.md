@@ -1,5 +1,7 @@
 # Roadmap
 
-- [ ] Adicionar 20 produtos novos em cada uma das 6 categorias, sem alterar os 48 atuais
-- [ ] Incluir URLs HTTPS de fotos reais no catálogo local e no banco
-- [ ] Confirmar 168 produtos, 28 por categoria, imagens carregando e compra preservada
+- [x] Adicionar 120 produtos, preservando os 48 anteriores e suas URLs
+- [ ] Validar catálogo e compra: cpu 26, gpu 26, ram 23, ssd 23, per 47, mon 23
+- [ ] Implementar Monte seu PC com seleção, resumo, persistência e carrinho
+- [ ] Adicionar ícone Catchau no cabeçalho e na aba do navegador
+- [ ] Verificar montagem e apresentação em telas grandes e pequenas
