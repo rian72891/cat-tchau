@@ -8,7 +8,7 @@ let rules: { rows: (s: Selection, p: Product[]) => { quantity: number }[]; total
 beforeAll(() => {
   const context = vm.createContext({});
   vm.runInContext(readFileSync('public/catchau/builder-logic.js', 'utf8'), context);
-  rules = context.CatchauBuilder;
+  rules = context['CatchauBuilder'];
 });
 describe('PC builder', () => {
   it('keeps product IDs and rejects selections from the wrong category', () => {
