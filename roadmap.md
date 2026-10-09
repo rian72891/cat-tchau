@@ -5,3 +5,10 @@
 - [x] Implementar Monte seu PC com seleção, resumo, persistência e carrinho
 - [x] Adicionar ícone Catchau no cabeçalho e na aba do navegador
 - [x] Verificar ajuste final em telas pequenas: resumo visível, sem transbordamento, seleção e carrinho funcionando
+
+## Rodapé
+- [ ] Ativar páginas institucionais, ajuda, pagamento e segurança
+- [ ] Conectar pedidos e acompanhamento ao histórico real da conta
+- [ ] Ativar categorias e seleção de componentes de upgrade
+- [ ] Oferecer preparação de contato, currículo e solicitação de devolução sem simular envio
+- [ ] Testar links, formulários e apresentação

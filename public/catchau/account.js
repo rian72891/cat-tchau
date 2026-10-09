@@ -5,12 +5,13 @@
   if(!window.supabase||!window.supabase.createClient)return;
   const sb=window.supabase.createClient(SB_URL,SB_KEY);
   const box=$('#acct'),body=$('#acctBody');
-  let user=null,mode='in',after=null;
+  let user=null,mode='in',after=null,view='orders';
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
   window.loadCatalog&&window.loadCatalog(sb);
 
   function open(o){box.classList.toggle('on',o);box.setAttribute('aria-hidden',!o);if(o)render()}
+  window.openCatchauAccount=(requested='orders')=>{view=requested;mode='in';after=null;open(true)};
   async function render(){
     if(!user){
       const up=mode==='up';
@@ -23,17 +24,19 @@
       return;
     }
     const name=user.user_metadata&&user.user_metadata.full_name||user.email;
-    body.innerHTML=`<h2>Olá, ${esc(name)}</h2><p class="m">${esc(user.email)}</p><h3 style="margin:0">Meus pedidos</h3><div id="ords"><p class="m">Carregando...</p></div><button class="btn g" id="acctOut">Sair</button>`;
-    const {data}=await sb.from('orders').select('id,total,discount,status,created_at,order_items(product_name,quantity)').order('created_at',{ascending:false});
+    body.innerHTML=`<h2>Olá, ${esc(name)}</h2><p class="m">${esc(user.email)}</p><h3 style="margin:0">${view==='tracking'?'Andamento dos pedidos':'Meus pedidos'}</h3>${view==='tracking'?'<p class="m">Status registrado na conta. Rastreamento de transportadora não disponível.</p>':''}<div id="ords"><p class="m">Carregando...</p></div><button class="btn g" id="acctOut">Sair</button>`;
+    const {data,error}=await sb.from('orders').select('id,total,discount,status,created_at,order_items(product_name,quantity)').order('created_at',{ascending:false});
     const el=$('#ords');if(!el)return;
-    el.innerHTML=data&&data.length?data.map(o=>`<div class="ord"><b><span>Pedido #${o.id.slice(0,8).toUpperCase()}</span><span>${R(+o.total)}</span></b><small>${new Date(o.created_at).toLocaleString('pt-BR')} · ${esc(o.status)}</small><div>${o.order_items.map(i=>`${i.quantity}x ${esc(i.product_name)}`).join('<br>')}</div></div>`).join(''):'<p class="m">Você ainda não fez pedidos.</p>';
+    if(error){el.innerHTML='<p class="m" role="alert">Não foi possível consultar seus pedidos.</p><button class="btn" id="ordersRetry">Tentar novamente</button>';return}
+    el.innerHTML=data&&data.length?data.map(o=>`<div class="ord"><b><span>Pedido #${o.id.slice(0,8).toUpperCase()}</span><span>${R(+o.total)}</span></b><small>${new Date(o.created_at).toLocaleString('pt-BR')} · ${esc(o.status)}</small><div>${(o.order_items||[]).map(i=>`${i.quantity}x ${esc(i.product_name)}`).join('<br>')}</div><details><summary>Detalhes do pedido</summary><p>Identificação: ${esc(o.id)}</p><p>Status: ${esc(o.status)}</p><p>Desconto: ${R(+o.discount)}</p><p>Pagamento e transportadora não integrados.</p></details></div>`).join(''):'<p class="m">Você ainda não fez pedidos.</p>';
   }
 
   document.addEventListener('click',async e=>{
     const t=e.target.closest('button');
     if(e.target===box){open(false);return}
     if(!t)return;
-    if(t.id==='acctBtn'){mode='in';open(true)}
+    if(t.id==='acctBtn'){view='orders';mode='in';open(true)}
+    else if(t.id==='ordersRetry')render();
     else if(t.id==='acctCls')open(false);
     else if(t.id==='acctSw'){mode=mode==='in'?'up':'in';render()}
     else if(t.id==='acctOut'){await sb.auth.signOut();open(false);toast('Você saiu da conta')}
