@@ -3,7 +3,6 @@
   const main = document.querySelector('main');
   if (!pages || !main) return;
   const page = new URLSearchParams(location.search).get('page');
-  const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const url = key => `/informacoes/${key}`;
   const home = '/';
   const host = document.createElement('section'); host.className = 'info-page wrap'; host.hidden = true;
@@ -37,6 +36,6 @@
     else if (key === 'contact') window.top.location.href = url('fale-conosco');
     else if (key === 'cart') drawer(true);
     else if (key === 'builder' || key === 'upgrade') { host.hidden = true; document.getElementById('buildBtn').click(); if (key === 'upgrade') document.querySelector('[data-build-slot="cpu"]')?.focus(); }
-    else { showShop(); reset(); if (key === 'per' || key === 'mon') setCat(key); if (key === 'hardware') { S.cat = 'all'; grid(); const ids = new Set(P.filter(p => ['cpu','gpu','ram','ssd'].includes(p.cat)).map(p => p.id)); document.querySelectorAll('#grid [data-pid]').forEach(el => { if (!ids.has(Number(el.dataset.pid))) el.remove(); }); document.getElementById('ttl').textContent = 'Hardware'; document.getElementById('res').textContent = `${document.querySelectorAll('#grid [data-pid]').length} produtos`; } document.getElementById('shop').scrollIntoView({behavior:'smooth'}); }
+    else { showShop(); reset(); if (['per','mon','hardware'].includes(key)) setCat(key); document.getElementById('shop').scrollIntoView({behavior:'smooth'}); }
   });
 })();

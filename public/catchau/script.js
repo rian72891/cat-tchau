@@ -259,7 +259,7 @@ function brands()          {
 }
 function list()          {
   const q=S.q.trim().toLowerCase();
-  let l=P.filter(p=>(S.cat==='all'||p.cat===S.cat)&&p.price<=S.max&&(!S.brands.size||S.brands.has(p.brand))&&(!S.fav||favs.has(p.id))&&(!q||(p.name+' '+p.brand+' '+CATS[p.cat]).toLowerCase().includes(q)));
+  let l=P.filter(p=>(S.cat==='all'||p.cat===S.cat||(S.cat==='hardware'&&['cpu','gpu','ram','ssd'].includes(p.cat)))&&p.price<=S.max&&(!S.brands.size||S.brands.has(p.brand))&&(!S.fav||favs.has(p.id))&&(!q||(p.name+' '+p.brand+' '+CATS[p.cat]).toLowerCase().includes(q)));
   const f=          {
     lo:(a,b)=>a.price-b.price,hi:(a,b)=>b.price-a.price,dc:(a,b)=>b.dc-a.dc,rt:(a,b)=>b.rate-a.rate||b.n-a.n
 
@@ -269,7 +269,7 @@ function list()          {
 }
 function grid()          {
   const l=list();
-  $('#ttl').textContent=S.cat==='all'?'Todos os produtos':CATS[S.cat];
+  $('#ttl').textContent=S.cat==='all'?'Todos os produtos':S.cat==='hardware'?'Hardware':CATS[S.cat];
   $('#res').textContent=l.length+(l.length===1?' produto':' produtos');
   $('#grid').innerHTML=l.length?l.map(p=>`<article class="card" data-pid="${p.id}">
   <span class="off">-${Math.round(p.dc*100)}%</span>
