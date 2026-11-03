@@ -1,14 +1,14 @@
 # Roadmap
 
 - [x] Adicionar 120 produtos, preservando os 48 anteriores e suas URLs
-- [x] Validar catálogo e compra: 168 cadastrados; cpu 26, gpu 26, ram 23, ssd 23, per 47, mon 23 (167 visíveis no filtro inicial de preço)
+- [x] Validar catálogo e compra
 - [x] Implementar Monte seu PC com seleção, resumo, persistência e carrinho
 - [x] Adicionar ícone Catchau no cabeçalho e na aba do navegador
-- [x] Verificar ajuste final em telas pequenas: resumo visível, sem transbordamento, seleção e carrinho funcionando
+- [x] Rodapé: páginas institucionais, pedidos, categorias, contato preparado
 
-## Rodapé
-- [ ] Ativar páginas institucionais, ajuda, pagamento e segurança
-- [ ] Conectar pedidos e acompanhamento ao histórico real da conta
-- [ ] Ativar categorias e seleção de componentes de upgrade
-- [ ] Oferecer preparação de contato, currículo e solicitação de devolução sem simular envio
-- [ ] Testar links, formulários e apresentação
+## Nível Pichau
+- [ ] Página inicial completa: banners rotativos, Mais vendidos, Ofertas do dia, marcas em destaque
+- [ ] Menu de departamentos e sugestões ao digitar na busca
+- [ ] Finalizar compra em etapas: endereço, frete, pagamento, resumo (sem cobrança real)
+- [ ] Comparar produtos, página de favoritos e vistos recentemente
+- [ ] Testar tudo junto (desktop e celular)
