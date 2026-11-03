@@ -62,6 +62,11 @@ export type Database = {
           created_at: string
           discount: number
           id: string
+          installments: number
+          payment_method: string | null
+          shipping_address: Json | null
+          shipping_cost: number
+          shipping_method: string | null
           status: string
           subtotal: number
           total: number
@@ -72,6 +77,11 @@ export type Database = {
           created_at?: string
           discount?: number
           id?: string
+          installments?: number
+          payment_method?: string | null
+          shipping_address?: Json | null
+          shipping_cost?: number
+          shipping_method?: string | null
           status?: string
           subtotal: number
           total: number
@@ -82,6 +92,11 @@ export type Database = {
           created_at?: string
           discount?: number
           id?: string
+          installments?: number
+          payment_method?: string | null
+          shipping_address?: Json | null
+          shipping_cost?: number
+          shipping_method?: string | null
           status?: string
           subtotal?: number
           total?: number
@@ -152,6 +167,17 @@ export type Database = {
     }
     Functions: {
       place_order: { Args: { _coupon?: string; _items: Json }; Returns: string }
+      place_order_checkout: {
+        Args: {
+          _address: Json
+          _coupon: string
+          _installments: number
+          _items: Json
+          _payment: string
+          _shipping: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never

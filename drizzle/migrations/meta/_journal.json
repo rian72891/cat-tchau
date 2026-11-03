@@ -8,6 +8,13 @@
       "when": 1790961559225,
       "tag": "0000_store_products_orders_profiles",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793702292013,
+      "tag": "0001_checkout_steps",
+      "breakpoints": true
     }
   ]
 }
