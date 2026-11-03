@@ -67,6 +67,7 @@
   });
   sb.auth.getSession().then(({data})=>{user=data.session&&data.session.user||null});
 
+  window.CatchauAccount={sb,getUser:()=>user,requireLogin(fn){if(user)return fn();after=fn;mode='in';open(true);toast('Entre na sua conta para continuar')}};
   window.checkout=async(cart,cupom,done)=>{
     if(!user){after=()=>window.checkout(cart,cupom,done);mode='in';open(true);toast('Entre na sua conta para finalizar');return}
     const {data,error}=await sb.rpc('place_order',{_items:cart,_coupon:cupom?cupom.code:null});
