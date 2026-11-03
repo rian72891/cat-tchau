@@ -281,6 +281,7 @@ function grid()          {
   <div class="pix">${R(pix(p))} <small>no PIX</small></div>
   <div class="inst">ou ${R(p.price)} em 12x de ${R(p.price/12)}</div>
   <button class="btn" data-add="${p.id}">Adicionar ao carrinho</button></article>`).join(''):'<div class="empty"><b>Nenhum produto encontrado.</b><br>Tente outra busca ou limpe os filtros.</div>';
+  document.dispatchEvent(new CustomEvent('catchau:grid'));
 }
 function deal()          {
   const p=P[8];
@@ -471,7 +472,7 @@ cartUI();
 tick();
 setInterval(tick,1000);
 // Carrega o catálogo do banco de dados (mantém a lista acima como reserva)
-window.loadCatalog=async(sb)=>{try{const {data,error}=await sb.from('products').select('id,category,brand,name,price,old_price,rating,reviews,image_url').order('id');if(error||!data||!data.length)return;P.length=0;data.forEach(r=>P[r.id]={id:r.id,cat:r.category,brand:r.brand,name:r.name,price:+r.price,old:+r.old_price,rate:+r.rating,n:r.reviews,img:r.image_url||null,dc:1-r.price/r.old_price});Object.keys(cart).forEach(k=>{if(!P[k])delete cart[k]});brands();deal();grid();cartUI()}catch(e){}};
+window.loadCatalog=async(sb)=>{try{const {data,error}=await sb.from('products').select('id,category,brand,name,price,old_price,rating,reviews,image_url').order('id');if(error||!data||!data.length)return;P.length=0;data.forEach(r=>P[r.id]={id:r.id,cat:r.category,brand:r.brand,name:r.name,price:+r.price,old:+r.old_price,rate:+r.rating,n:r.reviews,img:r.image_url||null,dc:1-r.price/r.old_price});Object.keys(cart).forEach(k=>{if(!P[k])delete cart[k]});brands();deal();grid();cartUI();document.dispatchEvent(new CustomEvent('catchau:catalog'))}catch(e){}};
 
 /* ===== Página de produto ===== */
 const PD_ANG={cpu:['caixa embalagem','processador chip frente','processador verso pinos','instalado placa mae'],gpu:['placa de video frente','placa de video lateral','backplate traseira','instalada gabinete rgb'],ram:['memoria ram','memoria ram kit par','memoria ram lateral rgb','instalada placa mae'],ssd:['ssd','ssd verso etiqueta','ssd caixa embalagem','ssd instalado'],per:['','lateral','embalagem caixa','setup gamer mesa'],mon:['monitor frente','monitor lateral','monitor traseira','monitor setup gamer']};
@@ -479,7 +480,7 @@ const SPECS={cpu:[['Soquete',p=>(p.name.match(/(LGA\d+|AM\d)/)||['—'])[0]],['N
 let PDS={p:null,i:0,imgs:[],q:1};
 function pdImgs(p){const base=[p.img].filter(Boolean),qs=(PD_ANG[p.cat]||['']).map(a=>`${p.brand} ${p.name} ${a}`.trim());
  return base.concat(qs.map((q,k)=>`https://tse${1+(p.id+k)%4}.mm.bing.net/th?q=${encodeURIComponent(q)}&w=800&h=800&c=7&rs=1&p=0`)).slice(0,5)}
-function pdOpen(id){const p=P.find(x=>x.id===id);if(!p)return;PDS={p,i:0,imgs:pdImgs(p),q:1};
+function pdOpen(id){const p=P.find(x=>x.id===id);if(!p)return;document.dispatchEvent(new CustomEvent('catchau:product',{detail:{id}}));PDS={p,i:0,imgs:pdImgs(p),q:1};
  const sp=(SPECS[p.cat]||[]).map(([k,v])=>`<tr><th>${k}</th><td>${typeof v==='function'?v(p):v}</td></tr>`).join('');
  const rel=P.filter(x=>x.cat===p.cat&&x.id!==p.id).sort((a,b)=>Math.abs(a.price-p.price)-Math.abs(b.price-p.price)).slice(0,4);
  const parc=[1,2,3,4,5,6,8,10,12].map(n=>`<li><span>${n}x</span><b>${R(p.price/n)}</b><small>sem juros</small></li>`).join('');
