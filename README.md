@@ -110,6 +110,10 @@ bun run dev      # ou: npm run dev
 4. Envie a branch: `git push origin feature/minha-feature`
 5. Abra um Pull Request
 
+## Créditos
+
+Este projeto foi desenvolvido com o apoio do [Lovable](https://lovable.dev) e do [Claude](https://claude.ai), da Anthropic.
+
 ## Desenvolvimento com Lovable
 
 Este projeto foi criado com [Lovable](https://lovable.dev). Você pode continuar o desenvolvimento no [editor do Lovable](https://lovable.dev/projects/8c992411-b2c2-4aa2-8937-5c0c37bf92cc): as alterações feitas lá são commitadas neste repositório, e pushes na `main` sincronizam de volta com o Lovable.
