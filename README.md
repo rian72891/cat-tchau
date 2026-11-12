@@ -1,4 +1,4 @@
-# 🐱 Cat-Tchau
+# Cat-Tchau
 
 Loja virtual de hardware e periféricos com catálogo de produtos, carrinho de compras e o configurador **Monte seu PC**.
 
