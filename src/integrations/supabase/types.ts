@@ -146,20 +146,76 @@ export type Database = {
       profiles: {
         Row: {
           created_at: string
+          default_address: Json | null
           full_name: string | null
           id: string
+          last_login_at: string | null
+          phone: string | null
+          updated_at: string
         }
         Insert: {
           created_at?: string
+          default_address?: Json | null
           full_name?: string | null
           id: string
+          last_login_at?: string | null
+          phone?: string | null
+          updated_at?: string
         }
         Update: {
           created_at?: string
+          default_address?: Json | null
           full_name?: string | null
           id?: string
+          last_login_at?: string | null
+          phone?: string | null
+          updated_at?: string
         }
         Relationships: []
+      }
+      user_carts: {
+        Row: {
+          items: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          items?: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          items?: Json
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_favorites: {
+        Row: {
+          created_at: string
+          product_id: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          product_id: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          product_id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_favorites_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
@@ -178,6 +234,7 @@ export type Database = {
         }
         Returns: string
       }
+      touch_login: { Args: never; Returns: undefined }
     }
     Enums: {
       [_ in never]: never
