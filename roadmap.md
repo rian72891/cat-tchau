@@ -7,8 +7,8 @@
 - [x] Rodapé: páginas institucionais, pedidos, categorias, contato preparado
 
 ## Nível Pichau
-- [ ] Página inicial completa: banners rotativos, Mais vendidos, Ofertas do dia, marcas em destaque
-- [ ] Menu de departamentos e sugestões ao digitar na busca
-- [ ] Finalizar compra em etapas: endereço, frete, pagamento, resumo (sem cobrança real)
-- [ ] Comparar produtos, página de favoritos e vistos recentemente
-- [ ] Testar tudo junto (desktop e celular)
+- [x] Página inicial completa: banners rotativos, Mais vendidos, Ofertas do dia, marcas em destaque
+- [x] Menu de departamentos e sugestões ao digitar na busca
+- [x] Finalizar compra em etapas: endereço, frete, pagamento, resumo (sem cobrança real)
+- [x] Comparar produtos, página de favoritos e vistos recentemente
+- [x] Testar tudo junto (desktop e celular)
